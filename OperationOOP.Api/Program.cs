@@ -40,6 +40,9 @@ namespace OperationOOP.Api
             app.MapEndpoints<Program>();
 
             app.Run();
+
+
+            //plan: exotic flowershop?
         }
     }
 }
