@@ -18,20 +18,15 @@
         //Logic
         private static List<Response> Handle(IDatabase db)
         {
-            List<Response> responseList = new List<Response>();
-            for (int i = 0; i < db.Flowers.Count; i++)
-            {
-                if (db.Flowers[i] == null) continue;
-
-                if (db.Flowers[i].GetType() == typeof(Rose))
-                {
-                    var rose = db.Flowers[i];
-                    var response = new Response(rose.Id, rose.Name, rose.Species, rose.AgeYears, rose.CareLevel);
-                    responseList.Add(response);
-                }
-            }
-
-            return responseList;
+            return db.Flowers.Where(rose => rose is Rose)
+                .Select(rose => new Response
+                (
+                    rose.Id,
+                    rose.Name,
+                    rose.Species,
+                     rose.AgeYears,
+                    rose.CareLevel
+                 )).ToList();
         }
     }
 }

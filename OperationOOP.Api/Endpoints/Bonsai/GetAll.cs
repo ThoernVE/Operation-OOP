@@ -21,19 +21,15 @@ public class GetAllBonsais : IEndpoint
     //Logic
     private static List<Response> Handle(IDatabase db)
     {
-        List<Response> responseList = new List<Response>();
-        for (int i = 0; i < db.Flowers.Count; i++)
-        {
-            if (db.Flowers[i] == null) continue;
-
-            if (db.Flowers[i].GetType() == typeof(Bonsai))
-            {
-                var flower = db.Flowers[i] as Bonsai;
-                var response = new Response(flower.Id, flower.Name, flower.Species, flower.AgeYears, flower.CareLevel, flower.Style);
-                responseList.Add(response);
-            }
-        }
-
-        return responseList;
+        return db.Flowers.Where(bonsai => bonsai is Bonsai)
+                .Select(bonsai  => new Response
+                (
+                    bonsai.Id,
+                    bonsai.Name,
+                    bonsai.Species,
+                    bonsai.AgeYears,
+                    bonsai.CareLevel,
+                    (bonsai as Bonsai).Style
+                 )).ToList();
     }
 }

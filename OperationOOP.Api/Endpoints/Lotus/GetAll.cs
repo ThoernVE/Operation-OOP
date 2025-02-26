@@ -21,20 +21,15 @@ namespace OperationOOP.Api.Endpoints
         //Logic
         private static List<Response> Handle(IDatabase db)
         {
-            List<Response> responseList = new List<Response>();
-            for (int i = 0; i < db.Flowers.Count; i++)
-            {
-                if (db.Flowers[i] == null) continue;
-
-                if (db.Flowers[i].GetType() == typeof(Lotus))
-                {
-                    var flower = db.Flowers[i];
-                    var response = new Response(flower.Id, flower.Name, flower.Species, flower.AgeYears, flower.CareLevel);
-                    responseList.Add(response);
-                }
-            }
-
-            return responseList;
+            return db.Flowers.Where(lotus => lotus is Rose)
+                 .Select(lotus => new Response
+                 (
+                     lotus.Id,
+                     lotus.Name,
+                     lotus.Species,
+                      lotus.AgeYears,
+                     lotus.CareLevel
+                  )).ToList();
         }
     }
 }
