@@ -9,7 +9,7 @@ public class GetAllBonsais : IEndpoint
         .WithSummary("Bonsai trees");
 
     // Request and Response types
-    public record Response(
+    public record BonsaiResponse(
      int Id,
      string Name,
      string Species,
@@ -19,10 +19,10 @@ public class GetAllBonsais : IEndpoint
     );
 
     //Logic
-    private static List<Response> Handle(IDatabase db)
+    private static List<BonsaiResponse> Handle(IDatabase db)
     {
         return db.Flowers.Where(bonsai => bonsai is Bonsai)
-                .Select(bonsai  => new Response
+                .Select(bonsai  => new BonsaiResponse
                 (
                     bonsai.Id,
                     bonsai.Name,

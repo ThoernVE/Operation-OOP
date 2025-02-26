@@ -3,19 +3,19 @@
     public class CreateRose : IEndpoint
     {
         public static void MapEndpoint(IEndpointRouteBuilder app) => app
-        .MapPost("/Roses", Handle)
+        .MapPost("/roses", Handle)
         .WithSummary("Roses");
 
-        public record Request(
+        public record RoseRequest(
             int Id,
             string Name,
             string Species,
             int AgeYears,
             CareLevel CareLevel
             );
-        public record Response(int id);
+        public record RoseResponse(int id);
 
-        private static Ok<Response> Handle(Request request, IDatabase db)
+        private static Ok<RoseResponse> Handle(RoseRequest request, IDatabase db)
         {
             var rose = new Lotus();
 
@@ -29,7 +29,7 @@
 
             db.Flowers.Add(rose);
 
-            return TypedResults.Ok(new Response(rose.Id));
+            return TypedResults.Ok(new RoseResponse(rose.Id));
         }
     }
 }

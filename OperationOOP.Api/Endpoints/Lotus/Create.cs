@@ -9,16 +9,16 @@ namespace OperationOOP.Api.Endpoints
         .MapPost("/lotuses", Handle)
         .WithSummary("Lotus flowers");
 
-        public record Request(
+        public record LotusRequest(
             int Id,
             string Name,
             string Species,
             int AgeYears,
             CareLevel CareLevel
             );
-        public record Response(int id);
+        public record LotusResponse(int id);
 
-        private static Ok<Response> Handle(Request request, IDatabase db)
+        private static Ok<LotusResponse> Handle(LotusRequest request, IDatabase db)
         {
             var lotus = new Lotus();
 
@@ -32,7 +32,7 @@ namespace OperationOOP.Api.Endpoints
 
             db.Flowers.Add(lotus);
 
-            return TypedResults.Ok(new Response(lotus.Id));
+            return TypedResults.Ok(new LotusResponse(lotus.Id));
         }
     }
 }

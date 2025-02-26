@@ -8,9 +8,9 @@ namespace OperationOOP.Api.Endpoints.Flower
         .MapGet("/flowers/{id}", Handle)
         .WithSummary("Flowers");
 
-        public record Request(int Id);
+        public record FlowerRequest(int Id);
 
-        public record Response(
+        public record FlowerResponse(
          int Id,
          string Name,
          string Species,
@@ -19,13 +19,13 @@ namespace OperationOOP.Api.Endpoints.Flower
          BonsaiStyle? Style
         );
 
-        private static Response Handle([AsParameters] Request request, IDatabase db)
+        private static FlowerResponse Handle([AsParameters] FlowerRequest request, IDatabase db)
         {
             var flower = db.Flowers.Find(flower => flower.Id == request.Id);
             if (flower == null) return null;
 
             // map flower to response dto
-            var response = new Response(
+            var response = new FlowerResponse(
                 Id: flower.Id,
                 Name: flower.Name,
                 Species: flower.Species,

@@ -5,11 +5,11 @@ namespace OperationOOP.Api.Endpoints
     public class GetAllFlowers : IEndpoint
     {
         public static void MapEndpoint(IEndpointRouteBuilder app) => app
-        .MapGet("/lotuses", Handle)
-        .WithSummary("Lotus flowers");
+        .MapGet("/flowers", Handle)
+        .WithSummary("Flowers");
 
         // Request and Response types
-        public record Response(
+        public record FlowerResponse(
          int Id,
          string Name,
          string Species,
@@ -19,9 +19,9 @@ namespace OperationOOP.Api.Endpoints
         );
 
         //Logic
-        private static List<Response> Handle(IDatabase db)
+        private static List<FlowerResponse> Handle(IDatabase db)
         {
-            return db.Flowers.Select(x => new Response
+            return db.Flowers.Select(x => new FlowerResponse
             (
                 Id: x.Id,
                 Name: x.Name,

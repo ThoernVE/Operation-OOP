@@ -3,11 +3,11 @@
     public class GetAllOrchids : IEndpoint
     {
         public static void MapEndpoint(IEndpointRouteBuilder app) => app
-        .MapGet("/lotuses", Handle)
-        .WithSummary("Lotus flowers");
+        .MapGet("/orchids", Handle)
+        .WithSummary("Orchids");
 
         // Request and Response types
-        public record Response(
+        public record OrchidResponse(
          int Id,
          string Name,
          string Species,
@@ -16,10 +16,10 @@
         );
 
         //Logic
-        private static List<Response> Handle(IDatabase db)
+        private static List<OrchidResponse> Handle(IDatabase db)
         {
             return db.Flowers.Where(orchid => orchid is Rose)
-                .Select(orchid => new Response
+                .Select(orchid => new OrchidResponse
                 (
                     orchid.Id,
                     orchid.Name,

@@ -6,16 +6,16 @@
         .MapPost("/orchids", Handle)
         .WithSummary("Orchid flowers");
 
-        public record Request(
+        public record OrchidRequest(
             int Id,
             string Name,
             string Species,
             int AgeYears,
             CareLevel CareLevel
             );
-        public record Response(int id);
+        public record OrchidResponse(int id);
 
-        private static Ok<Response> Handle(Request request, IDatabase db)
+        private static Ok<OrchidResponse> Handle(OrchidRequest request, IDatabase db)
         {
             var orchid = new Lotus();
 
@@ -29,7 +29,7 @@
 
             db.Flowers.Add(orchid);
 
-            return TypedResults.Ok(new Response(orchid.Id));
+            return TypedResults.Ok(new OrchidResponse(orchid.Id));
         }
     }
 }

@@ -7,7 +7,7 @@ public class CreateBonsai : IEndpoint
         .MapPost("/bonsais", Handle)
         .WithSummary("Bonsai trees");
 
-    public record Request(
+    public record BonsaiRequest(
         int Id,
         string Name,
         string Species,
@@ -15,9 +15,9 @@ public class CreateBonsai : IEndpoint
         CareLevel CareLevel,
         BonsaiStyle Style
         );
-    public record Response(int id);
+    public record BonsaiResponse(int id);
 
-    private static Ok<Response> Handle(Request request, IDatabase db)
+    private static Ok<BonsaiResponse> Handle(BonsaiRequest request, IDatabase db)
     {
         var bonsai = new Bonsai();
 
@@ -32,7 +32,7 @@ public class CreateBonsai : IEndpoint
 
         db.Flowers.Add(bonsai);
 
-        return TypedResults.Ok(new Response(bonsai.Id));
+        return TypedResults.Ok(new BonsaiResponse(bonsai.Id));
     }
 }
 

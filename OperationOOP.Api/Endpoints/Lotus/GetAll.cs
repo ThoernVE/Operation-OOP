@@ -10,7 +10,7 @@ namespace OperationOOP.Api.Endpoints
         .WithSummary("Lotus flowers");
 
         // Request and Response types
-        public record Response(
+        public record LotusResponse(
          int Id,
          string Name,
          string Species,
@@ -19,10 +19,10 @@ namespace OperationOOP.Api.Endpoints
         );
 
         //Logic
-        private static List<Response> Handle(IDatabase db)
+        private static List<LotusResponse> Handle(IDatabase db)
         {
             return db.Flowers.Where(lotus => lotus is Rose)
-                 .Select(lotus => new Response
+                 .Select(lotus => new LotusResponse
                  (
                      lotus.Id,
                      lotus.Name,
