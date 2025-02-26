@@ -1,4 +1,6 @@
-﻿namespace OperationOOP.Api.Endpoints;
+﻿using OperationOOP.Core.Interfaces;
+
+namespace OperationOOP.Api.Endpoints;
 public class GetAllBonsais : IEndpoint
 {
     // Mapping
@@ -8,21 +10,30 @@ public class GetAllBonsais : IEndpoint
 
     // Request and Response types
     public record Response(
-        int Id,
-        string Name,
-        DateTime LastWatered,
-        DateTime LastPruned
+     int Id,
+     string Name,
+     string Species,
+     int AgeYears,
+     CareLevel CareLevel,
+     BonsaiStyle Style
     );
 
     //Logic
     private static List<Response> Handle(IDatabase db)
     {
-        return db.Bonsais
-            .Select(item => new Response(
-                Id: item.Id,
-                Name: item.Name,
-                LastWatered: item.LastWatered,
-                LastPruned: item.LastPruned
-            )).ToList();
+        List<Response> responseList = new List<Response>();
+        for (int i = 0; i < db.Flowers.Count; i++)
+        {
+            if (db.Flowers[i] == null) continue;
+
+            if (db.Flowers[i].GetType() == typeof(Bonsai))
+            {
+                var flower = db.Flowers[i] as Bonsai;
+                var response = new Response(flower.Id, flower.Name, flower.Species, flower.AgeYears, flower.CareLevel, flower.Style);
+                responseList.Add(response);
+            }
+        }
+
+        return responseList;
     }
 }

@@ -15,10 +15,4 @@
     <ProjectReference Include="..\OperationOOP.Core\OperationOOP.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Endpoints\Lotus\" />
-    <Folder Include="Endpoints\Rose\" />
-    <Folder Include="Endpoints\Orchid\" />
-  </ItemGroup>
-
 </Project>

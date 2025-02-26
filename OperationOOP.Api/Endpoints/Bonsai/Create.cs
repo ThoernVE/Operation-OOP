@@ -1,4 +1,6 @@
-﻿namespace OperationOOP.Api.Endpoints;
+﻿using OperationOOP.Core.Interfaces;
+
+namespace OperationOOP.Api.Endpoints;
 public class CreateBonsai : IEndpoint
 {
     public static void MapEndpoint(IEndpointRouteBuilder app) => app
@@ -6,13 +8,12 @@ public class CreateBonsai : IEndpoint
         .WithSummary("Bonsai trees");
 
     public record Request(
+        int Id,
         string Name,
         string Species,
         int AgeYears,
-        DateTime LastWatered,
-        DateTime LastPruned,
-        BonsaiStyle Style,
-        CareLevel CareLevel
+        CareLevel CareLevel,
+        BonsaiStyle Style
         );
     public record Response(int id);
 
@@ -20,18 +21,16 @@ public class CreateBonsai : IEndpoint
     {
         var bonsai = new Bonsai();
 
-        bonsai.Id = db.Bonsais.Any()
-            ? db.Bonsais.Max(bonsai => bonsai.Id) + 1
+        bonsai.Id = db.Flowers.Any()
+            ? db.Flowers.Max(bonsai => bonsai.Id) + 1
             : 1;
         bonsai.Name = request.Name;
         bonsai.Species = request.Species;
         bonsai.AgeYears = request.AgeYears;
-        bonsai.LastWatered = request.LastWatered;
-        bonsai.LastPruned = request.LastPruned;
         bonsai.Style = request.Style;
         bonsai.CareLevel = request.CareLevel;
 
-        db.Bonsais.Add(bonsai);
+        db.Flowers.Add(bonsai);
 
         return TypedResults.Ok(new Response(bonsai.Id));
     }
