@@ -32,26 +32,30 @@ namespace OperationOOP.Api.Endpoints
         //Logic
         private static List<SortedResponse> SortByFlowerType(IDatabase db)
         {
-            return db.Flowers.Select(x => new SortedResponse
-            (
-                Id: x.Id,
-                Name: x.Name,
-                Species: x.Species,
-                AgeYears: x.AgeYears,
-                CareLevel: x.CareLevel,
-                Style: (x as Bonsai)?.Style // Null if not a Bonsai
-            )).OrderBy(x => GetTypeOrder(x)).ToList();
-        }
-
-        private static int GetTypeOrder(object flower)
-        {
-
-            if (flower.GetType() == typeof(Bonsai)) return 1;
-            if (flower.GetType() == typeof(Lotus)) return 2;
-            if (flower.GetType() == typeof(Orchid)) return 3;
-            if (flower.GetType() == typeof(Rose)) return 4;
-            return 99;
-
+            var responses = new List<SortedResponse>();
+            
+            foreach (var flower in db.Flowers)
+            {
+                responses.Add(new SortedResponse(
+                    Id: flower.Id,
+                    Name: flower.Name,
+                    Species: flower.Species,
+                    AgeYears: flower.AgeYears,
+                    CareLevel: flower.CareLevel,
+                    Style: (flower as Bonsai)?.Style
+                ));
+            }
+            
+            // Sort the list using a custom comparison with stringname.
+            responses.Sort((a, b) => 
+            {
+                var flowerA = db.Flowers.First(f => f.Id == a.Id);
+                var flowerB = db.Flowers.First(f => f.Id == b.Id);
+                
+                return string.Compare(flowerA.GetType().Name, flowerB.GetType().Name);
+            });
+            
+            return responses;
         }
         private static List<SortedResponse> SortById(IDatabase db)
         {
