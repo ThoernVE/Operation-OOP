@@ -29,8 +29,7 @@ namespace OperationOOP.Api.Endpoints
                 AgeYears: x.AgeYears,
                 CareLevel: x.CareLevel,
                 Style: (x as Bonsai)?.Style // Null if not a Bonsai
-            ))
-                .ToList();
+            )).ToList();
         }
     }
 }

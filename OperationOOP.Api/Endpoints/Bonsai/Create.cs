@@ -19,6 +19,7 @@ public class CreateBonsai : IEndpoint
 
     private static Ok<BonsaiResponse> Handle(BonsaiRequest request, IDatabase db)
     {
+        //if (request == null) return NotFound();
         var bonsai = new Bonsai();
 
         bonsai.Id = db.Flowers.Any()
