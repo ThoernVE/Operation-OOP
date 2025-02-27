@@ -16,17 +16,17 @@
         );
 
         //Logic
-        private static List<OrchidResponse> Handle(IDatabase db)
+        private static IResult Handle(IDatabase db)
         {
-            return db.Flowers.Where(orchid => orchid is Rose)
+            return Results.Ok(db.Flowers.Where(orchid => orchid is Orchid)
                 .Select(orchid => new OrchidResponse
                 (
                     orchid.Id,
                     orchid.Name,
                     orchid.Species,
-                     orchid.AgeYears,
+                    orchid.AgeYears,
                     orchid.CareLevel
-                 )).ToList();
+                 )).ToList());
         }
     }
 }

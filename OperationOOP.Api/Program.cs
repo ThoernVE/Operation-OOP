@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using OperationOOP.Api.Endpoints;
 using OperationOOP.Core.Data;
+using OperationOOP.Core.Services;
 
 namespace OperationOOP.Api
 {
@@ -23,6 +24,7 @@ namespace OperationOOP.Api
             });
 
             builder.Services.AddSingleton<IDatabase, Database>();
+            builder.Services.AddScoped<ISortingService, SortingService>();
 
             var app = builder.Build();
 
@@ -42,7 +44,6 @@ namespace OperationOOP.Api
             app.Run();
 
 
-            //plan: exotic flowershop?
         }
     }
 }

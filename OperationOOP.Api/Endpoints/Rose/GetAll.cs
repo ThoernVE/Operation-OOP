@@ -16,9 +16,9 @@
         );
 
         //Logic
-        private static List<RoseResponse> Handle(IDatabase db)
+        private static IResult Handle(IDatabase db)
         {
-            return db.Flowers.Where(rose => rose is Rose)
+            return Results.Ok(db.Flowers.Where(rose => rose is Rose)
                 .Select(rose => new RoseResponse
                 (
                     rose.Id,
@@ -26,7 +26,7 @@
                     rose.Species,
                      rose.AgeYears,
                     rose.CareLevel
-                 )).ToList();
+                 )).ToList());
         }
     }
 }

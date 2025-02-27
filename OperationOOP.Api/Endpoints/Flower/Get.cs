@@ -19,7 +19,7 @@ namespace OperationOOP.Api.Endpoints.Flower
          BonsaiStyle? Style
         );
 
-        private static FlowerResponse Handle([AsParameters] FlowerRequest request, IDatabase db)
+        private static IResult Handle([AsParameters] FlowerRequest request, IDatabase db)
         {
             var flower = db.Flowers.Find(flower => flower.Id == request.Id);
             if (flower == null) return null;
@@ -35,7 +35,7 @@ namespace OperationOOP.Api.Endpoints.Flower
                 );
 
 
-            return response;
+            return Results.Ok(response.Id);
         }
     }
 }

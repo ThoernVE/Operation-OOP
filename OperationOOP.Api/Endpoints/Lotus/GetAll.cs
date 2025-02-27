@@ -19,9 +19,9 @@ namespace OperationOOP.Api.Endpoints
         );
 
         //Logic
-        private static List<LotusResponse> Handle(IDatabase db)
+        private static IResult Handle(IDatabase db)
         {
-            return db.Flowers.Where(lotus => lotus is Rose)
+            return Results.Ok(db.Flowers.Where(lotus => lotus is Rose)
                  .Select(lotus => new LotusResponse
                  (
                      lotus.Id,
@@ -29,7 +29,7 @@ namespace OperationOOP.Api.Endpoints
                      lotus.Species,
                       lotus.AgeYears,
                      lotus.CareLevel
-                  )).ToList();
+                  )).ToList());
         }
     }
 }

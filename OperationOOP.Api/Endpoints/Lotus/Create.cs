@@ -18,7 +18,7 @@ namespace OperationOOP.Api.Endpoints
             );
         public record LotusResponse(int id);
 
-        private static Ok<LotusResponse> Handle(LotusRequest request, IDatabase db)
+        private static IResult Handle(LotusRequest request, IDatabase db)
         {
             var lotus = new Lotus();
 
@@ -32,7 +32,7 @@ namespace OperationOOP.Api.Endpoints
 
             db.Flowers.Add(lotus);
 
-            return TypedResults.Ok(new LotusResponse(lotus.Id));
+            return Results.Ok(new LotusResponse(lotus.Id));
         }
     }
 }

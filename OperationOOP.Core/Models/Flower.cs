@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OperationOOP.Core.Models
@@ -16,6 +17,8 @@ namespace OperationOOP.Core.Models
         public CareLevel CareLevel { get; set; }
         public DateTime LastPruned { get; set; }
     }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum CareLevel
     {
         Beginner,

@@ -15,7 +15,7 @@
             );
         public record OrchidResponse(int id);
 
-        private static Ok<OrchidResponse> Handle(OrchidRequest request, IDatabase db)
+        private static IResult Handle(OrchidRequest request, IDatabase db)
         {
             var orchid = new Lotus();
 
@@ -29,7 +29,7 @@
 
             db.Flowers.Add(orchid);
 
-            return TypedResults.Ok(new OrchidResponse(orchid.Id));
+            return Results.Ok(new OrchidResponse(orchid.Id));
         }
     }
 }

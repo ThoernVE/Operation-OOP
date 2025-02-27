@@ -15,7 +15,7 @@
             );
         public record RoseResponse(int id);
 
-        private static Ok<RoseResponse> Handle(RoseRequest request, IDatabase db)
+        private static IResult Handle(RoseRequest request, IDatabase db)
         {
             var rose = new Lotus();
 

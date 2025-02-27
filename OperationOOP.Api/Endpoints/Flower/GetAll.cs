@@ -19,9 +19,9 @@ namespace OperationOOP.Api.Endpoints
         );
 
         //Logic
-        private static List<FlowerResponse> Handle(IDatabase db)
+        private static IResult Handle(IDatabase db)
         {
-            return db.Flowers.Select(x => new FlowerResponse
+            return Results.Ok(db.Flowers.Select(x => new FlowerResponse
             (
                 Id: x.Id,
                 Name: x.Name,
@@ -29,7 +29,7 @@ namespace OperationOOP.Api.Endpoints
                 AgeYears: x.AgeYears,
                 CareLevel: x.CareLevel,
                 Style: (x as Bonsai)?.Style // Null if not a Bonsai
-            )).ToList();
+            )).ToList());
         }
     }
 }

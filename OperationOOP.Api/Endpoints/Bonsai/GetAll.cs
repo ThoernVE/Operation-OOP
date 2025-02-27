@@ -19,9 +19,9 @@ public class GetAllBonsais : IEndpoint
     );
 
     //Logic
-    private static List<BonsaiResponse> Handle(IDatabase db)
+    private static IResult Handle(IDatabase db)
     {
-        return db.Flowers.Where(bonsai => bonsai is Bonsai)
+        return Results.Ok(db.Flowers.Where(bonsai => bonsai is Bonsai)
                 .Select(bonsai  => new BonsaiResponse
                 (
                     bonsai.Id,
@@ -30,6 +30,6 @@ public class GetAllBonsais : IEndpoint
                     bonsai.AgeYears,
                     bonsai.CareLevel,
                     (bonsai as Bonsai).Style
-                 )).ToList();
+                 )).ToList());
     }
 }

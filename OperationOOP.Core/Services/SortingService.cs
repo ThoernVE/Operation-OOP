@@ -15,10 +15,9 @@ namespace OperationOOP.Core.Services
     {
         public SortingService() { }
 
-        public List<Flower> SortByClass(List<Flower> list)
-        {
-            
-            return list.OrderBy(x => x.GetType()).ToList();
+        public List<T> SortByClass<T>(List<T> list) where T : class
+        {   
+            return list.OrderBy(x => x.GetType().Name).ToList();
         }
 
         public List<Flower> SortById(List<Flower> list)

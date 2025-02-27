@@ -17,9 +17,9 @@ public class CreateBonsai : IEndpoint
         );
     public record BonsaiResponse(int id);
 
-    private static Ok<BonsaiResponse> Handle(BonsaiRequest request, IDatabase db)
+    private static IResult Handle(BonsaiRequest request, IDatabase db)
     {
-        //if (request == null) return NotFound();
+        if (request == null) return Results.NotFound();
         var bonsai = new Bonsai();
 
         bonsai.Id = db.Flowers.Any()
@@ -33,7 +33,7 @@ public class CreateBonsai : IEndpoint
 
         db.Flowers.Add(bonsai);
 
-        return TypedResults.Ok(new BonsaiResponse(bonsai.Id));
+        return Results.Created("New Bonsai created.", new BonsaiResponse(bonsai.Id));
     }
 }
 

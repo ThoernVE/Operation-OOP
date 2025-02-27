@@ -30,7 +30,7 @@ namespace OperationOOP.Api.Endpoints
         );
 
         //Logic
-        private static List<SortedResponse> SortByFlowerType(IDatabase db)
+        private static IResult SortByFlowerType(IDatabase db)
         {
             var responses = new List<SortedResponse>();
             
@@ -55,11 +55,11 @@ namespace OperationOOP.Api.Endpoints
                 return string.Compare(flowerA.GetType().Name, flowerB.GetType().Name);
             });
             
-            return responses;
+            return Results.Ok(responses);
         }
-        private static List<SortedResponse> SortById(IDatabase db)
+        private static IResult SortById(IDatabase db)
         {
-            return db.Flowers.Select(x => new SortedResponse
+            return Results.Ok(db.Flowers.Select(x => new SortedResponse
             (
                 Id: x.Id,
                 Name: x.Name,
@@ -67,11 +67,11 @@ namespace OperationOOP.Api.Endpoints
                 AgeYears: x.AgeYears,
                 CareLevel: x.CareLevel,
                 Style: (x as Bonsai)?.Style // Null if not a Bonsai
-            )).OrderBy(x => x.Id).ToList();
+            )).OrderBy(x => x.Id).ToList());
         }
-        private static List<SortedResponse> SortByAge(IDatabase db)
+        private static IResult SortByAge(IDatabase db)
         {
-            return db.Flowers.Select(x => new SortedResponse
+            return Results.Ok(db.Flowers.Select(x => new SortedResponse
             (
                 Id: x.Id,
                 Name: x.Name,
@@ -79,11 +79,11 @@ namespace OperationOOP.Api.Endpoints
                 AgeYears: x.AgeYears,
                 CareLevel: x.CareLevel,
                 Style: (x as Bonsai)?.Style // Null if not a Bonsai
-            )).OrderBy(x => x.AgeYears).ToList();
+            )).OrderBy(x => x.AgeYears).ToList());
         }
-        private static List<SortedResponse> SortByCareLevel(IDatabase db)
+        private static IResult SortByCareLevel(IDatabase db)
         {
-            return db.Flowers.Select(x => new SortedResponse
+            return Results.Ok(db.Flowers.Select(x => new SortedResponse
             (
                 Id: x.Id,
                 Name: x.Name,
@@ -91,7 +91,7 @@ namespace OperationOOP.Api.Endpoints
                 AgeYears: x.AgeYears,
                 CareLevel: x.CareLevel,
                 Style: (x as Bonsai)?.Style // Null if not a Bonsai
-            )).OrderBy(x => x.CareLevel).ToList();
+            )).OrderBy(x => x.CareLevel).ToList());
         }
     }
 }
