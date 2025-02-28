@@ -23,13 +23,13 @@ namespace OperationOOP.Api
                 options.InferSecuritySchemes();
             });
 
-            builder.Services.AddSingleton<IDatabase, Database>();
-            builder.Services.AddScoped<ISortingService, SortingService>();
+            builder.Services.AddSingleton<IDatabase, Database>(); //adding singleton database so we always use the same database
+            builder.Services.AddScoped<ISortingService, SortingService>(); //adding sorting service with scope for best practice.
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment()) //setup for swagger in development
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -39,7 +39,7 @@ namespace OperationOOP.Api
 
             app.UseAuthorization();
 
-            app.MapEndpoints<Program>();
+            app.MapEndpoints<Program>(); //mapping endpoints
 
             app.Run();
 

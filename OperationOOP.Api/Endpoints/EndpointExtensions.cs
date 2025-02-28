@@ -8,7 +8,7 @@ public static class EndpointExtensions
         MapEndpoints(app, typeof(T));
     }
 
-    public static void MapEndpoints(this IApplicationBuilder app, Type T)
+    public static void MapEndpoints(this IApplicationBuilder app, Type T)  //function to map all endpoints in the assembly
     {
         var endpointTypes = GetEndpointTypesFromAssemblyContaining(T);
 

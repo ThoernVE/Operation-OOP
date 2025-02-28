@@ -5,21 +5,22 @@ namespace OperationOOP.Api.Endpoints
 {
     public class CreateLotus : IEndpoint
     {
-        public static void MapEndpoint(IEndpointRouteBuilder app) => app
+        public static void MapEndpoint(IEndpointRouteBuilder app) => app //mapping endpoint.
         .MapPost("/lotuses", Handle)
         .WithSummary("Lotus flowers");
 
-        public record LotusRequest(
+        public record LotusRequest( //DTO for lotusrequest.
             int Id,
             string Name,
             string Species,
             int AgeYears,
             CareLevel CareLevel
             );
-        public record LotusResponse(int id);
+        public record LotusResponse(int id); //DTO for lotusresponse.
 
-        private static IResult Handle(LotusRequest request, IDatabase db)
+        private static IResult Handle(LotusRequest request, IDatabase db) //endpoint to create a lotus.
         {
+            if (request == null) return Results.NotFound(); //return not found statuscode if request is null.
             var lotus = new Lotus();
 
             lotus.Id = db.Flowers.Any()
@@ -32,7 +33,7 @@ namespace OperationOOP.Api.Endpoints
 
             db.Flowers.Add(lotus);
 
-            return Results.Ok(new LotusResponse(lotus.Id));
+            return Results.Created("New Rose created", new LotusResponse(lotus.Id)); //returns 201 if created correctly.
         }
     }
 }

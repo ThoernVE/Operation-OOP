@@ -5,12 +5,12 @@ namespace OperationOOP.Api.Endpoints
     public class GetAllLotuses : IEndpoint
     {
 
-        public static void MapEndpoint(IEndpointRouteBuilder app) => app
+        public static void MapEndpoint(IEndpointRouteBuilder app) => app //mapping endpoint.
         .MapGet("/lotuses", Handle)
         .WithSummary("Lotus flowers");
 
         // Request and Response types
-        public record LotusResponse(
+        public record LotusResponse( //DTO for lotusresponse.
          int Id,
          string Name,
          string Species,
@@ -19,7 +19,7 @@ namespace OperationOOP.Api.Endpoints
         );
 
         //Logic
-        private static IResult Handle(IDatabase db)
+        private static IResult Handle(IDatabase db) //endpoint to get all lotuses. Filters with LINQ to only get classtype Lotus.
         {
             return Results.Ok(db.Flowers.Where(lotus => lotus is Rose)
                  .Select(lotus => new LotusResponse

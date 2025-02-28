@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace OperationOOP.Core.Interfaces
 {
-    public interface IBonsai
+    public interface IBonsai //interface specifically for Bonsai model. Might be a bit reduntant for this use case but wanted to use composition instead of inhertiance for BonsaiStyle
     {
         public BonsaiStyle Style { get; set; }
     }
 
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum BonsaiStyle
+    [JsonConverter(typeof(JsonStringEnumConverter))] //converts json to string in swagger
+    public enum BonsaiStyle //enum for bonsaistyle
     {
         Chokkan,    // Formal Upright
         Moyogi,     // Informal Upright

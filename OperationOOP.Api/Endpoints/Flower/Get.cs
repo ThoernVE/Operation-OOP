@@ -4,13 +4,13 @@ namespace OperationOOP.Api.Endpoints.Flower
 {
     public class GetFlower : IEndpoint
     {
-        public static void MapEndpoint(IEndpointRouteBuilder app) => app
+        public static void MapEndpoint(IEndpointRouteBuilder app) => app //mapping endpoint.
         .MapGet("/flowers/{id}", Handle)
         .WithSummary("Flowers");
 
-        public record FlowerRequest(int Id);
+        public record FlowerRequest(int Id); //DTO for flowerrequest.
 
-        public record FlowerResponse(
+        public record FlowerResponse( //DTO for flowerresponse.
          int Id,
          string Name,
          string Species,
@@ -19,10 +19,10 @@ namespace OperationOOP.Api.Endpoints.Flower
          BonsaiStyle? Style
         );
 
-        private static IResult Handle([AsParameters] FlowerRequest request, IDatabase db)
+        private static IResult Handle([AsParameters] FlowerRequest request, IDatabase db) //endpoint to get a flower by using a specific ID.
         {
             var flower = db.Flowers.Find(flower => flower.Id == request.Id);
-            if (flower == null) return null;
+            if (flower == null) return Results.NotFound("Flower not found");
 
             // map flower to response dto
             var response = new FlowerResponse(
@@ -35,7 +35,7 @@ namespace OperationOOP.Api.Endpoints.Flower
                 );
 
 
-            return Results.Ok(response.Id);
+            return Results.Ok(response);
         }
     }
 }

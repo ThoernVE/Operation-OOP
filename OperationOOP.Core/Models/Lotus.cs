@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OperationOOP.Core.Models
 {
-    public class Lotus : Flower
+    public class Lotus : Flower //inheritance from flower
     {
 
     }

@@ -4,12 +4,12 @@ namespace OperationOOP.Api.Endpoints;
 public class GetAllBonsais : IEndpoint
 {
     // Mapping
-    public static void MapEndpoint(IEndpointRouteBuilder app) => app
+    public static void MapEndpoint(IEndpointRouteBuilder app) => app //mapping endpoint.
         .MapGet("/bonsais", Handle)
         .WithSummary("Bonsai trees");
 
     // Request and Response types
-    public record BonsaiResponse(
+    public record BonsaiResponse( //DTO for bonsairesponse.
      int Id,
      string Name,
      string Species,
@@ -19,7 +19,7 @@ public class GetAllBonsais : IEndpoint
     );
 
     //Logic
-    private static IResult Handle(IDatabase db)
+    private static IResult Handle(IDatabase db) //endpoint to get all bonsais. Filters with LINQ to only get classtype Bonsai.
     {
         return Results.Ok(db.Flowers.Where(bonsai => bonsai is Bonsai)
                 .Select(bonsai  => new BonsaiResponse
@@ -29,7 +29,7 @@ public class GetAllBonsais : IEndpoint
                     bonsai.Species,
                     bonsai.AgeYears,
                     bonsai.CareLevel,
-                    (bonsai as Bonsai).Style
+                    (bonsai as Bonsai).Style //Defining the bonsai as classtype Bonsai to access the Style-property.
                  )).ToList());
     }
 }

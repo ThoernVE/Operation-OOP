@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OperationOOP.Core.Models
 {
-    public class Flower
+    public class Flower //superclass for all flowers.
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,8 +18,8 @@ namespace OperationOOP.Core.Models
         public DateTime LastPruned { get; set; }
     }
 
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum CareLevel
+    [JsonConverter(typeof(JsonStringEnumConverter))] //jsonconverter for the enum Carelevel to show as string in Swagger
+    public enum CareLevel //enum for the carelevel of flower.
     {
         Beginner,
         Intermediate,

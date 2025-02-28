@@ -2,22 +2,22 @@
 
 namespace OperationOOP.Core.Data
 {
-    public interface IDatabase
+    public interface IDatabase //interface to abstract the database
     {
         List<Flower> Flowers { get; set; }
 
     }
 
-    public class Database : IDatabase
+    public class Database : IDatabase //databaseclass that implements the interface
     {
-        public List<Flower> Flowers { get; set; }
+        public List<Flower> Flowers { get; set; } //list that will be used to handle flowers, mocking a real database. Not a proper mock by the mocking-standars in testing, more of a fake database for this specific project.
 
-        public Database()
+        public Database() //constructor with method to generate flowers
         {
             Flowers = GenerateFlowers();
         }
 
-        private List<Flower> GenerateFlowers()
+        private List<Flower> GenerateFlowers() //method to generate flowers and make mocking database easier
         {
             var flowerList = new List<Flower>
             {
